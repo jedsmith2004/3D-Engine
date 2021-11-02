@@ -14,8 +14,8 @@ clock = pygame.time.Clock()
 fps = 60
 
 meshCube = Mesh()
-meshCube.load_from_obj("hammer.obj")
-# create_triangles(meshCube)
+# meshCube.load_from_obj("hammer.obj")
+create_triangles(meshCube)
 
 def redraw_window(camera):
     window.fill((0,0,0))
