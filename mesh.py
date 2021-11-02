@@ -48,9 +48,9 @@ class Mesh:
             tri_rotated_xyz = m_rot_z.tri_by_4x4(tri_rotated_xy)
 
             translated = tri_rotated_xyz
-            translated.vertices[0].z = tri_rotated_xyz.vertices[0].z + 3
-            translated.vertices[1].z = tri_rotated_xyz.vertices[1].z + 3
-            translated.vertices[2].z = tri_rotated_xyz.vertices[2].z + 3
+            translated.vertices[0].z = tri_rotated_xyz.vertices[0].z + 8
+            translated.vertices[1].z = tri_rotated_xyz.vertices[1].z + 8
+            translated.vertices[2].z = tri_rotated_xyz.vertices[2].z + 8
 
             line1 = Vector3(translated.vertices[1].x - translated.vertices[0].x,
                              translated.vertices[1].y - translated.vertices[0].y,
