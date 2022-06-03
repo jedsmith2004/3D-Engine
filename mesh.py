@@ -8,6 +8,18 @@ indentity = [[1,0,0],
              [0,1,0],
              [0,0,1]]
 
+def bubble_sort(lst):
+    while True:
+        swaps = 0
+        for i in range(len(lst)):
+            if i != len(lst)-1:
+                if (lst[i].vertices[0].z,lst[i].vertices[1].z,lst[i].vertices[2].z) < (lst[i+1].vertices[0].z,lst[i+1].vertices[1].z,lst[i+1].vertices[2].z):
+                    swaps += 1
+                    temp = lst[i]
+                    lst[i] = lst[i+1]
+                    lst[i+1] = temp
+        if swaps == 0: return lst
+
 class Mesh:
     def __init__(self):
         self.triangles = []
@@ -37,20 +49,19 @@ class Mesh:
                                                         (v2[0],v2[1],v2[2]),
                                                         (v3[0],v3[1],v3[2])))
 
-
     def update(self,camera):
         m_rot_x = Matrix.rotation_x(self.pitch)
         m_rot_y = Matrix.rotation_y(self.yaw)
         m_rot_z = Matrix.rotation_z(self.roll)
-        for tri in self.triangles:
+        for tri in bubble_sort(self.triangles):
             tri_rotated_x = m_rot_x.tri_by_4x4(tri)
             tri_rotated_xy = m_rot_y.tri_by_4x4(tri_rotated_x)
             tri_rotated_xyz = m_rot_z.tri_by_4x4(tri_rotated_xy)
 
             translated = tri_rotated_xyz
-            translated.vertices[0].z = tri_rotated_xyz.vertices[0].z + 8
-            translated.vertices[1].z = tri_rotated_xyz.vertices[1].z + 8
-            translated.vertices[2].z = tri_rotated_xyz.vertices[2].z + 8
+            translated.vertices[0].z = tri_rotated_xyz.vertices[0].z + 5
+            translated.vertices[1].z = tri_rotated_xyz.vertices[1].z + 5
+            translated.vertices[2].z = tri_rotated_xyz.vertices[2].z + 5
 
             line1 = Vector3(translated.vertices[1].x - translated.vertices[0].x,
                              translated.vertices[1].y - translated.vertices[0].y,
@@ -87,3 +98,4 @@ class Mesh:
                 projected.vertices[2] *= [0.5 * camera.s_width, 0.5 * camera.s_height, 0]
 
                 projected.fill_triangle(camera.window, col)
+                projected.draw_triangle(camera.window)
